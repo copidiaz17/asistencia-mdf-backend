@@ -20,7 +20,7 @@ router.post("/", authMiddleware, async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 10);
     const nuevo = await Usuario.create({ nombre, email, password: hash, rol: rolFinal });
-    return res.status(201).json({ id: nuevo.id, nombre: nuevo.nombre, email: nuevo.email, rol: nuevo.rol });
+    return res.status(201).json({ ok: true, id: nuevo.id, nombre: nuevo.nombre, email: nuevo.email, rol: nuevo.rol });
   } catch (e) {
     if (e.name === "SequelizeUniqueConstraintError")
       return res.status(400).json({ message: "El email ya está registrado." });
